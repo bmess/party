@@ -1,16 +1,18 @@
-bin/
-lib/
-include/
-dist/
+# MANIFEST.in
+#*.*#
+*.*~
 *.egg.info/
+*.orig
+*.ox
 *.pyc
 .Python
-*.*~
-#*.*#
-*.ox
-*.orig
-README.txt
+.env/
+.idea/
+.vscode/
 LICENSE.txt
-# MANIFEST.in
+README.txt
+bin/
+dist/
+include/
+lib/
 party/test/test_party.py
-
