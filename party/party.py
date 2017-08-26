@@ -73,14 +73,14 @@ class Party(PartyRequest):
         auth = (self.username, base64.b64decode(self.password).decode())
         query_type = query_type.lower()
 
-        if query_type == "get":
-            response = requests.get(query, auth=auth, headers=self.headers)
-        elif query_type == "put":
-            response = requests.put(query, data=query.split('?', 1)[1], auth=auth, headers=self.headers)
-        elif query_type == 'delete':
+        if query_type == 'delete':
             response = requests.delete(query, auth=auth, headers=self.headers)
+        elif query_type == "get":
+            response = requests.get(query, auth=auth, headers=self.headers)
         elif query_type == "post":
             response = requests.post(query, auth=auth, headers=self.headers, **kwargs)
+        elif query_type == "put":
+            response = requests.put(query, data=query.split('?', 1)[1], auth=auth, headers=self.headers)
         else:
             raise UnknownQueryType('Unsupported query type: %s' % query_type)
 
@@ -323,3 +323,10 @@ class Party(PartyRequest):
         # Set the class 'files' variable to have the list of found artifacts
         self.files = results
         return "OK"
+
+    def upload_artifact(self, data`):
+        """
+        Upload the artifact 'data' to the server
+        User should pass in the full destination path for the artifact as data
+        """
+        query_artifactory(query=data, query_type='put', dry=False)
